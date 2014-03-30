@@ -1,13 +1,15 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-namespace synopsys
+namespace synopsis
 {
 
 enum ECommonTypes
 {
     ECommonTypeNone ,
+    ECommonTypeBool  ,
     ECommonTypeInt  ,
+    ECommonTypeDouble,
     ECommonTypeFloat,
     ECommonTypeDate ,
     ECommonTypeTime ,
