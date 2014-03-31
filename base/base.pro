@@ -11,4 +11,6 @@ inc/defines.h
 SOURCES += \
 cpp/variant.cpp
 
+DESTDIR = out
+
 
