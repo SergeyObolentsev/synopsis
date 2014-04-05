@@ -6,15 +6,15 @@
 
 namespace synopsis {
 
-class Variant {
+class CVariant {
 
 public:
 
-    Variant ();
-    Variant (ECommonTypes eType);
-    Variant (int iVal);
-    Variant (bool iVal);
-    Variant (double iVal);
+    CVariant ();
+    CVariant (ECommonTypes eType);
+    CVariant (int iVal);
+    CVariant (bool iVal);
+    CVariant (double iVal);
 
     inline bool IsValid() const { return m_bIsValid; }
     inline bool IsNull() const { return m_bIsNull; }
@@ -26,7 +26,7 @@ public:
     bool ToBool() const;
     double ToDouble() const;
 
-    friend std::ostream& operator<<(std::ostream&, Variant&);
+    friend std::ostream& operator<<(std::ostream&, CVariant&);
 
 public:
 private:

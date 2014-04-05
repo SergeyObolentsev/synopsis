@@ -15,17 +15,22 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-INCLUDEPATH = ../../
+INCLUDEPATH = ${ROOT_SYNOPSIS}
 
 SOURCES += \
     tst_test_basetest.cpp \
-    test_variant.cpp
+    test_variant.cpp \
+    test_row.cpp
 
 
 HEADERS += \
-    test_variant.h
+    test_variant.h \
+    test_row.h \
+    qtmeta.h
 
-OUT_PWD = ../out
+DESTDIR = ../out
 
-LIBS += -L$$PWD/../base/out
-LIBS += -lsynopsisdao
+LIBS += -L../out
+LIBS += \
+    -lsynopsisbase \
+    -lsynopsisdao

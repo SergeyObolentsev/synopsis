@@ -1,33 +1,34 @@
+#include "qtmeta.h"
 #include "test_variant.h"
 
-Test_synopsis_Variant::Test_synopsis_Variant()
+Test_synopsis_CVariant::Test_synopsis_CVariant()
 {
 }
 
-void Test_synopsis_Variant::initTestCase()
-{
-
-}
-
-void Test_synopsis_Variant::cleanupTestCase()
+void Test_synopsis_CVariant::initTestCase()
 {
 
 }
 
-void Test_synopsis_Variant::testCase1()
+void Test_synopsis_CVariant::cleanupTestCase()
 {
-    QFETCH(synopsis::Variant, data);
+
+}
+
+void Test_synopsis_CVariant::testCase1()
+{
+    QFETCH(synopsis::CVariant, data);
     QFETCH(int, expected);
     QVERIFY(data.ToInt() == expected);
 }
 
-void Test_synopsis_Variant::testCase1_data()
+void Test_synopsis_CVariant::testCase1_data()
 {
-    QTest::addColumn<synopsis::Variant>("data");
+    QTest::addColumn<synopsis::CVariant>("data");
     QTest::addColumn<int>("expected");
 
-    QTest::newRow("zero")     << synopsis::Variant(0)    <<    0;
-    QTest::newRow("positive") << synopsis::Variant(100)  <<  100;
-    QTest::newRow("negative") << synopsis::Variant(-100) << -100;
+    QTest::newRow("zero")     << synopsis::CVariant(0)    <<    0;
+    QTest::newRow("positive") << synopsis::CVariant(100)  <<  100;
+    QTest::newRow("negative") << synopsis::CVariant(-100) << -100;
 }
 

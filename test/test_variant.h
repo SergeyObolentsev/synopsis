@@ -1,17 +1,16 @@
-#ifndef TEST_VARIANT_H
-#define TEST_VARIANT_H
+#ifndef TEST_CVariant_H
+#define TEST_CVariant_H
 
-#include "../base/inc/variant.h"
+#include <base/inc/variant.h>
 #include <QTest>
 
-Q_DECLARE_METATYPE(synopsis::Variant)
 
-class Test_synopsis_Variant : public QObject
+class Test_synopsis_CVariant : public QObject
 {
     Q_OBJECT
 
 public:
-    Test_synopsis_Variant();
+    Test_synopsis_CVariant();
 
 private Q_SLOTS:
     void initTestCase();
@@ -22,4 +21,4 @@ private Q_SLOTS:
 };
 
 
-#endif // TEST_VARIANT_H
+#endif // TEST_CVariant_H

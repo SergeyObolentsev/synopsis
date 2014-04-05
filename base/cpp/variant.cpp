@@ -4,21 +4,21 @@
 
 namespace synopsis {
 
-Variant::Variant()
+CVariant::CVariant()
     :m_eType(ECommonTypeNone)
     ,m_bIsValid(false)
     ,m_bIsNull(true)
 {
 }
 
-Variant::Variant (ECommonTypes eType)
+CVariant::CVariant (ECommonTypes eType)
     :m_eType(eType)
     ,m_bIsValid(true)
     ,m_bIsNull(true)
 {
 }
 
-Variant::Variant (int iVal)
+CVariant::CVariant (int iVal)
     :m_eType(ECommonTypeInt)
     ,m_bIsValid(true)
     ,m_bIsNull(false)
@@ -26,7 +26,7 @@ Variant::Variant (int iVal)
     m_uData.i = iVal;
 }
 
-Variant::Variant (bool bVal)
+CVariant::CVariant (bool bVal)
     :m_eType(ECommonTypeBool)
     ,m_bIsValid(true)
     ,m_bIsNull(false)
@@ -34,7 +34,7 @@ Variant::Variant (bool bVal)
     m_uData.b = bVal;
 }
 
-Variant::Variant (double dVal)
+CVariant::CVariant (double dVal)
     :m_eType(ECommonTypeDouble)
     ,m_bIsValid(true)
     ,m_bIsNull(false)
@@ -42,19 +42,19 @@ Variant::Variant (double dVal)
     m_uData.d = dVal;
 }
 
-int Variant::ToInt() const
+int CVariant::ToInt() const
 {
     assert(ECommonTypeInt == m_eType);
     return m_uData.i;
 }
 
-bool Variant::ToBool() const
+bool CVariant::ToBool() const
 {
     assert(ECommonTypeBool == m_eType);
     return m_uData.b;
 }
 
-double Variant::ToDouble() const
+double CVariant::ToDouble() const
 {
     assert(ECommonTypeDouble == m_eType);
     return m_uData.d;
@@ -62,7 +62,7 @@ double Variant::ToDouble() const
 
 } //namespace synopsis
 
-std::ostream& operator<<(std::ostream& os, synopsis::Variant& v)
+std::ostream& operator<<(std::ostream& os, synopsis::CVariant& v)
 {
     switch(v.GetType()) {
         case synopsis::ECommonTypeBool:
