@@ -32,3 +32,22 @@ void Test_synopsis_CVariant::testCase1_data()
     QTest::newRow("negative") << synopsis::CVariant(-100) << -100;
 }
 
+void Test_synopsis_CVariant::testCase2()
+{
+    QFETCH(synopsis::CVariant, data);
+    QFETCH(int, expected);
+    QVERIFY(data.ToInt() == expected);
+}
+
+void Test_synopsis_CVariant::testCase2_data()
+{
+    QTest::addColumn<synopsis::CVariant>("data");
+    QTest::addColumn<int>("expected");
+
+    QTest::newRow("zero2")     << synopsis::CVariant(0)    <<    0;
+    QTest::newRow("positive2") << synopsis::CVariant(100)  <<  100;
+    QTest::newRow("negative2") << synopsis::CVariant(-100) << -100;
+}
+
+
+

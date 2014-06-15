@@ -18,6 +18,10 @@ void Test_synopsis_CRow::cleanupTestCase()
 
 void Test_synopsis_CRow::testCase1()
 {
+    // This is a test for synopsis::CRow columns of int type
+    // 1)Add a column and set value of integer type,
+    // 2)Read and check the written value
+
     QFETCH(std::string, column);
     QFETCH(synopsis::CVariant, value);
     QFETCH(int, expected);

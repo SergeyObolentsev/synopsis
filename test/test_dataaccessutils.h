@@ -1,16 +1,14 @@
-#ifndef TEST_CVariant_H
-#define TEST_CVariant_H
+#ifndef TEST_DATAACCESSUTILS_H
+#define TEST_DATAACCESSUTILS_H
 
-#include <base/inc/variant.h>
 #include <QTest>
 
-
-class Test_synopsis_CVariant : public QObject
+class Test_synopsis_DataAccessUtils : public QObject
 {
     Q_OBJECT
 
 public:
-    Test_synopsis_CVariant();
+    Test_synopsis_DataAccessUtils();
 
 private Q_SLOTS:
     void initTestCase();
@@ -22,4 +20,5 @@ private Q_SLOTS:
 };
 
 
-#endif // TEST_CVariant_H
+
+#endif // TEST_DATAACCESSUTILS_H

@@ -20,13 +20,15 @@ INCLUDEPATH = ${ROOT_SYNOPSIS}
 SOURCES += \
     tst_test_basetest.cpp \
     test_variant.cpp \
-    test_row.cpp
+    test_row.cpp \
+    test_dataaccessutils.cpp
 
 
 HEADERS += \
     test_variant.h \
     test_row.h \
-    qtmeta.h
+    qtmeta.h \
+    test_dataaccessutils.h
 
 DESTDIR = ../out
 

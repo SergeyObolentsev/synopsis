@@ -62,7 +62,7 @@ double CVariant::ToDouble() const
 
 } //namespace synopsis
 
-std::ostream& operator<<(std::ostream& os, synopsis::CVariant& v)
+std::ostream& operator<<(std::ostream& os, const synopsis::CVariant& v)
 {
     switch(v.GetType()) {
         case synopsis::ECommonTypeBool:

@@ -49,16 +49,26 @@ public:
         return lb->second;
     }
 
-    TMap::iterator begin()
+    inline TMap::iterator begin()
     {
         return m_mapColumns.begin();
     }
 
-    TMap::iterator end()
+    inline TMap::iterator end()
     {
         return m_mapColumns.end();
     }
 
+
+    inline TMap::const_iterator begin() const
+    {
+        return m_mapColumns.begin();
+    }
+
+    inline TMap::const_iterator end() const
+    {
+        return m_mapColumns.end();
+    }
 
 private:
     TMap m_mapColumns;

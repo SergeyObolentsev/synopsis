@@ -21,6 +21,9 @@ public:
     inline void SetNull() { m_bIsNull = true; }
     inline ECommonTypes GetType() const { return m_eType; }
     inline void SetType(ECommonTypes eType) { m_eType = eType; }
+    inline bool IsNumber() const { return m_eType == ECommonTypeInt
+                                       || m_eType == ECommonTypeDouble
+                                       || m_eType == ECommonTypeFloat ; }
 
     int ToInt() const;
     bool ToBool() const;
@@ -45,5 +48,7 @@ private:
 };
 
 } //namespace synopsis
+
+std::ostream& operator << (std::ostream& os, const synopsis::CVariant& v);
 
 #endif // __fb18b419_a0b8_4588_8bca_c238e00562e3__
