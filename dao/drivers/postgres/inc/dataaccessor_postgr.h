@@ -1,18 +1,19 @@
-#ifndef DATAACCESSORBASE_H
-#define DATAACCESSORBASE_H
+#ifndef DATAACCESSOR_POSTGR_H
+#define DATAACCESSOR_POSTGR_H
 
-#include "idataaccessor.h"
+#include <dao/inc/dataaccessorbase.h>
+#include "connection_postgr.h"
 
 
 namespace synopsis {
 
-class CDataAccessorBase : public IDataAccessor {
+class CDataAccessorPostgr : public IDataAccessor {
 
 public:
 
-   // CDataAccessorBase();
+    CDataAccessorPostgr(ConnectionPostgr& connection);
 
-   // virtual void SetConnection(IConnection* pIConnection) { m_pIConnection = pIConnection; }
+//    virtual void SetConnection(IConnection* pIConnection) { m_pIConnection = pIConnection; }
 
     virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
                       const CRow& rowSelection, const TStrings& arrColumnsSort) const;
@@ -21,10 +22,9 @@ public:
     virtual void Delete(const std::string& sTableName, const CRow& rowSelection);
 
 private:
-   //IConnection* m_pIConnection;
+    ConnectionPostgr&  m_Connection;
 };
 
 } // namespace synopsis
 
-
-#endif // DATAACCESSORBASE_H
+#endif // DATAACCESSOR_POSTGR_H

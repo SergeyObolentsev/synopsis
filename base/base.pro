@@ -1,6 +1,10 @@
-QT       -= core gui
-TARGET = synopsisbase
+QT -= core gui
 TEMPLATE = lib
+
+INCLUDEPATH += ${ROOT_SYNOPSIS}
+DESTDIR = ${ROOT_SYNOPSIS}/out/
+
+TARGET = synopsisbase
 
 HEADERS += \
 inc/column.h \
@@ -11,7 +15,5 @@ inc/stl_helper_map.h
 
 SOURCES += \
 cpp/variant.cpp
-
-DESTDIR = ../out
 
 

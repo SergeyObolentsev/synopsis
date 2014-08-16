@@ -4,18 +4,18 @@ TEMPLATE = lib
 
 INCLUDEPATH += ${ROOT_SYNOPSIS}
 
-HEADERS += \
-    inc/row.h \
-    inc/idataaccessor.h \
-    inc/dataaccessorbase.h \
-    inc/dataaccessorutils.h
-
 DESTDIR = ../out
 
 LIBS += -L../out
 LIBS += -lsynopsisbase
 
+HEADERS += \
+    inc/row.h \
+    inc/idataaccessor.h \
+    inc/dataaccessorbase.h \
+    inc/dataaccessorutils.h \
+    inc/iconnection.h
+
 SOURCES += \
     cpp/dataaccessorutils.cpp \
     cpp/dataaccessorbase.cpp
-

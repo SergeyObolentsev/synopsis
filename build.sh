@@ -1,0 +1,2 @@
+qmake synopsis.pro
+make

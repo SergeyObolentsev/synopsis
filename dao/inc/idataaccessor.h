@@ -2,6 +2,7 @@
 #define IDATAACCESSOR_H
 
 #include "row.h"
+//#include "iconnection.h"
 
 #include <list>
 
@@ -11,9 +12,10 @@ class IDataAccessor {
 
 public:
 
-typedef std::list<CRow> TRows;
-typedef std::list<std::string> TStrings;
+    typedef std::list<CRow> TRows;
+    typedef std::list<std::string> TStrings;
 
+//    virtual void SetConnection(IConnection* pIConnection) = 0;
     virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
               const CRow& rowSelection, const TStrings& arrColumnsSort) const = 0;
     virtual void Insert(const std::string& sTableName, const TRows& arrRows) = 0;

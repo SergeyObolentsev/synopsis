@@ -2,5 +2,6 @@ TEMPLATE = subdirs
 CONFIG += ordered
 SUBDIRS  = \
     base \
-    test \
-    dao
+    dao \
+    dao/drivers/postgres \
+    test
