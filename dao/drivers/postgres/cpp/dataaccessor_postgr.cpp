@@ -18,10 +18,47 @@ CDataAccessorPostgr::CDataAccessorPostgr(ConnectionPostgr& connection)
 }
 
 void CDataAccessorPostgr::Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
-                      const CRow& rowSelection, const TStrings& arrColumnsSort) const
+                      const CRow& rowSelection, const SelectionOrder& selectionOrder) const
 {
     CheckConnection();
 
+    std::stringstream ss;
+    GenerateSelectClause(ss, sTableName ,arrColumns, rowSelection, selectionOrder);
+
+    PGresult *res(NULL);
+    res = PQexec(m_Connection.getPGconn(), ss.str().c_str());
+
+    ExecStatusType status = PQresultStatus(res);
+
+    if (status != PGRES_TUPLES_OK) {
+          std::string sMsg(PQresultErrorMessage(res));
+          std::stringstream ss;
+          ss << "PQ Failed to execute query. "
+             << sMsg;
+          PQclear(res);
+          throw std::runtime_error(ss.str());
+     }
+
+    int iRowNum = PQntuples(res);
+    int iFieldNum = PQnfields(res);
+    if(iRowNum > 0 && iFieldNum > 0) {
+        for(int i = 0; i < iRowNum; ++i) {
+            CRow row;
+
+            for(int j = 0; j < iFieldNum; ++j) {
+
+                if(PQgetisnull(res, i, j)) {
+                    row.setColumnValue(PQfname(res, j), CVariant());
+                } else {
+                    CVariant val = PQgetvalue(res, i, j);
+                    row.setColumnValue(PQfname(res, j), val);
+                }
+            }
+            arrResult.push_back(row);
+        }
+    }
+
+    PQclear(res);
 }
 
 
@@ -31,7 +68,7 @@ void CDataAccessorPostgr::Insert(const std::string& sTableName, const CRow& rowN
     CheckConnection();
 
     std::stringstream ss;
-    GenerateInsertClase(ss, sTableName ,rowNew);
+    GenerateInsertClause(ss, sTableName ,rowNew);
 
     PGresult *res(NULL);
     res = PQexec(m_Connection.getPGconn(), ss.str().c_str());
@@ -71,8 +108,6 @@ unsigned long CDataAccessorPostgr::GetLastIsertedRowId(const std::string& sTable
     PGresult *res(NULL);
 
     const char sqlCommand[] = "SELECT currval(pg_get_serial_sequence($1, $2));";
-
-        //select currval(pg_get_serial_sequence('test', 'id'))
 
     res = PQexecParams(
          m_Connection.getPGconn()

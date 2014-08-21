@@ -14,7 +14,8 @@ HEADERS += \
     inc/idataaccessor.h \
     inc/dataaccessorbase.h \
     inc/dataaccessorutils.h \
-    inc/iconnection.h
+    inc/iconnection.h \
+    inc/daocommon.h
 
 SOURCES += \
     cpp/dataaccessorutils.cpp \

@@ -11,7 +11,7 @@ CDataAccessorBase::CDataAccessorBase()
 
 
 void CDataAccessorBase::Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
-              const CRow& rowSelection, const TStrings& arrColumnsSort) const
+              const CRow& rowSelection, const SelectionOrder& selectionOrder) const
 {
 
 }

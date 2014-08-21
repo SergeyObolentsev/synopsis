@@ -13,8 +13,8 @@ public:
 
     CDataAccessorPostgr(ConnectionPostgr& connection);
 
-    virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
-                      const CRow& rowSelection, const TStrings& arrColumnsSort) const;
+    virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns = TStrings(),
+                      const CRow& rowSelection = CRow(), const SelectionOrder& selectionOrder = SelectionOrder()) const;
     virtual void Insert(const std::string& sTableName, const CRow& rowNew);
     virtual void Update(const std::string& sTableName, const CRow& rowSelection, const CRow& rowUpdate);
     virtual void Delete(const std::string& sTableName, const CRow& rowSelection);

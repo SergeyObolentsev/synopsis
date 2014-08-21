@@ -1,6 +1,7 @@
-#include "../inc/variant.h"
-
+#include <stdlib.h>
 #include <assert.h>
+
+#include "../inc/variant.h"
 
 namespace synopsis {
 
@@ -62,8 +63,20 @@ CVariant::CVariant (const std::string& sVal)
 
 int CVariant::ToInt() const
 {
-    assert(ECommonTypeInt == m_eType);
-    return m_uData.i;
+    int iRes = 0;
+    switch (m_eType) {
+        case ECommonTypeInt:
+            iRes = m_uData.i;
+        break;
+        case ECommonTypeStdString:
+            if (!m_sData.empty()){
+                iRes = atoi(m_sData.c_str());
+            }
+        break;
+        default:
+         iRes = 0;
+    }
+    return iRes;
 }
 
 bool CVariant::ToBool() const

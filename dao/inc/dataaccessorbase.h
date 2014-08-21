@@ -17,7 +17,7 @@ public:
    // virtual void SetConnection(IConnection* pIConnection) { m_pIConnection = pIConnection; }
 
     virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
-                      const CRow& rowSelection, const TStrings& arrColumnsSort) const;
+                      const CRow& rowSelection, const SelectionOrder& selectionOrder) const;
     virtual void Insert(const std::string& sTableName, const CRow& rowNew);
     virtual void Update(const std::string& sTableName, const CRow& rowSelection, const CRow& rowUpdate);
     virtual void Delete(const std::string& sTableName, const CRow& rowSelection);

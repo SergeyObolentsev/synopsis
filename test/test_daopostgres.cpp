@@ -35,14 +35,6 @@ void Test_synopsis_ConnectionPostgr::testCase1()
     // 1)Add a column and set value of integer type,
     // 2)Read and check the written value
 
-   // QFETCH(std::string, column);
-   // QFETCH(synopsis::CVariant, value);
-   // QFETCH(int, expected);
-
-   // m_row.addColumn(column, value);
-   // QVERIFY(m_row.getColumnValue(column).ToInt() == expected);
-
-
     synopsis::CRow rowNew;
 
     rowNew.setColumnValue("int1", 1234);
@@ -55,16 +47,17 @@ void Test_synopsis_ConnectionPostgr::testCase1()
 
 void Test_synopsis_ConnectionPostgr::testCase1_data()
 {
+}
 
+void Test_synopsis_ConnectionPostgr::testCase2()
+{
+    synopsis::TRows arrResult;
+    const std::string sTableName("test");
+    m_PtrDataAccessor->Read(arrResult, sTableName);
+}
 
-
-   // QTest::addColumn<std::string>("column");
-   // QTest::addColumn<synopsis::CVariant>("value");
-   // QTest::addColumn<int>("expected");
-
-   // QTest::newRow("zero")     << std::string("first")  << synopsis::CVariant(0)    <<    0;
-   // QTest::newRow("positive") << std::string("second") << synopsis::CVariant(100)  <<  100;
-   // QTest::newRow("negative") << std::string("third")  << synopsis::CVariant(-100) << -100;
+void Test_synopsis_ConnectionPostgr::testCase2_data()
+{
 
 }
 

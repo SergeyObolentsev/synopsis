@@ -85,13 +85,16 @@ public:
         return m_sKeyColumn;
     }
 
+    inline bool Empty() const {
+        return m_mapColumns.empty();
+    }
+
 private:
     TMap m_mapColumns;
     std::string m_sKeyColumn;
 };
 
 typedef std::list<CRow> TRows;
-typedef std::list<std::string> TStrings;
 
 } //namespace synopsis
 

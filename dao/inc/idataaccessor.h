@@ -2,6 +2,7 @@
 #define IDATAACCESSOR_H
 
 #include "row.h"
+#include "daocommon.h"
 //#include "iconnection.h"
 
 //#include <list>
@@ -12,9 +13,8 @@ class IDataAccessor {
 
 public:
 
-//    virtual void SetConnection(IConnection* pIConnection) = 0;
-    virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
-              const CRow& rowSelection, const TStrings& arrColumnsSort) const = 0;
+    virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns = TStrings(),
+                      const CRow& rowSelection = CRow(), const SelectionOrder& selectionOrder = SelectionOrder()) const = 0;
     virtual void Insert(const std::string& sTableName, const CRow& rowNew) = 0;
     virtual void Update(const std::string& sTableName, const CRow& rowSelection, const CRow& rowUpdate) = 0;
     virtual void Delete(const std::string& sTableName, const CRow& rowSelection) = 0;

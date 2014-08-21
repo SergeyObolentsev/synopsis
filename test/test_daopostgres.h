@@ -20,6 +20,8 @@ private Q_SLOTS:
     void cleanupTestCase();
     void testCase1();
     void testCase1_data();
+    void testCase2();
+    void testCase2_data();
 
 private:
     synopsis::ConnectionPostgr m_Connection;

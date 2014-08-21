@@ -60,7 +60,7 @@ void Test_synopsis_DataAccessUtils::testCase2_data()
     //expected result
     QTest::addColumn<std::string>("expected");
 
-    QTest::newRow("int") << std::string("id") << synopsis::CVariant(0) << std::string(" WHERE id = 0");
+    QTest::newRow("int") << std::string("id") << synopsis::CVariant(0) << std::string(" WHERE id=0");
 }
 
 void Test_synopsis_DataAccessUtils::testCase3()
@@ -89,7 +89,7 @@ void Test_synopsis_DataAccessUtils::testCase3()
         row.addColumn(col3, val3);
 
         std::stringstream ss;
-        synopsis::GenerateInsertClase(ss, table, row);
+        synopsis::GenerateInsertClause(ss, table, row);
         std::string sRes = ss.str();
         QVERIFY(sRes == expected);
     }
@@ -97,7 +97,7 @@ void Test_synopsis_DataAccessUtils::testCase3()
 
 void Test_synopsis_DataAccessUtils::testCase3_data()
 {
-    // Test for SQL INSERT clase generator
+    // Test for SQL INSERT clause generator
 
     // table name
     QTest::addColumn<std::string>("table");
@@ -130,7 +130,6 @@ void Test_synopsis_DataAccessUtils::testCase3_data()
     QTest::addColumn<std::string>("expected");
 
     QTest::newRow("int")
-
             << std::string("tbl")
 
             << std::string("col0")
@@ -148,3 +147,350 @@ void Test_synopsis_DataAccessUtils::testCase3_data()
             << std::string("INSERT INTO tbl (col0, col1, col2, col3) VALUES ('str0', 'str1', 100, 200)");
 
 }
+
+void Test_synopsis_DataAccessUtils::testCase4()
+{
+    // Test for SQL SELECT clause generator
+    QFETCH(std::string, table);
+    QFETCH(std::string, expected);
+
+    {
+        std::stringstream ss;
+        synopsis::GenerateSelectClause(ss, table);
+        std::string sRes = ss.str();
+        QVERIFY(sRes == expected);
+    }
+}
+
+void Test_synopsis_DataAccessUtils::testCase4_data()
+{
+    // Test for SQL SELECT clause generator
+
+    // table name
+    QTest::addColumn<std::string>("table");
+
+    //expected result
+    QTest::addColumn<std::string>("expected");
+
+    QTest::newRow("int")
+            << std::string("tbl")
+            << std::string("SELECT * FROM tbl");
+}
+
+void Test_synopsis_DataAccessUtils::testCase5()
+{
+    // Test for SQL "SELECT * " clause generator
+    QFETCH(std::string, table);
+    QFETCH(std::string, expected);
+    QFETCH(std::string, col0);
+    QFETCH(std::string, col1);
+    {
+        std::stringstream ss;
+        synopsis::TStrings columns;
+        columns.push_back(col0);
+        columns.push_back(col1);
+        synopsis::GenerateSelectClause(ss, table, columns);
+        std::string sRes = ss.str();
+        QVERIFY(sRes == expected);
+    }
+}
+
+void Test_synopsis_DataAccessUtils::testCase5_data()
+{
+    // Test for SQL SELECT + columns list clause generator
+
+    // table name
+    QTest::addColumn<std::string>("table");
+
+    // #1 column
+    //column name
+    QTest::addColumn<std::string>("col0");
+
+    // #2 column
+    //column name
+    QTest::addColumn<std::string>("col1");
+
+    //expected result
+    QTest::addColumn<std::string>("expected");
+
+    QTest::newRow("int")
+            << std::string("tbl")
+            << std::string("col0")
+            << std::string("col1")
+            << std::string("SELECT col0, col1 FROM tbl");
+}
+
+void Test_synopsis_DataAccessUtils::testCase6()
+{
+    // Test for SQL SELECT + WHERE clause generator
+    QFETCH(std::string, table);
+    QFETCH(std::string, expected);
+    QFETCH(std::string, col0);
+    QFETCH(std::string, col1);
+    QFETCH(std::string, col2);
+    QFETCH(synopsis::CVariant, val2);
+    {
+        std::stringstream ss;
+
+        synopsis::TStrings columns;
+        columns.push_back(col0);
+        columns.push_back(col1);
+        columns.push_back(col2);
+
+        synopsis::CRow rowSelection(col2, val2);
+
+        synopsis::GenerateSelectClause(ss, table, columns, rowSelection);
+        std::string sRes = ss.str();
+        QVERIFY(sRes == expected);
+    }
+}
+
+void Test_synopsis_DataAccessUtils::testCase6_data()
+{
+    // Test for SQL SELECT + WHERE clause generator
+
+    // table name
+    QTest::addColumn<std::string>("table");
+
+    // #1 column
+    //column name
+    QTest::addColumn<std::string>("col0");
+
+    // #2 column
+    //column name
+    QTest::addColumn<std::string>("col1");
+
+    // #3 column
+    //column name
+    QTest::addColumn<std::string>("col2");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val2");
+
+
+
+    //expected result
+    QTest::addColumn<std::string>("expected");
+
+    QTest::newRow("int")
+            << std::string("tbl")
+            << std::string("col0")
+            << std::string("col1")
+            << std::string("col2")
+            << synopsis::CVariant(333)
+            << std::string("SELECT col0, col1, col2 FROM tbl WHERE col2=333");
+}
+
+void Test_synopsis_DataAccessUtils::testCase7()
+{
+    // Test for SQL SELECT + WHERE clause generator
+    QFETCH(std::string, table);
+    QFETCH(std::string, expected);
+    QFETCH(std::string, col0);
+    QFETCH(std::string, col1);
+    QFETCH(std::string, col2);
+    QFETCH(std::string, col3);
+    QFETCH(std::string, col4);
+
+    QFETCH(synopsis::CVariant, val2);
+    QFETCH(synopsis::CVariant, val3);
+    QFETCH(synopsis::CVariant, val4);
+
+    {
+        std::stringstream ss;
+
+        synopsis::TStrings columns;
+        columns.push_back(col0);
+        columns.push_back(col1);
+        columns.push_back(col2);
+        columns.push_back(col3);
+        columns.push_back(col4);
+
+        synopsis::CRow rowSelection;
+        rowSelection.setColumnValue(col2, val2);
+        rowSelection.setColumnValue(col3, val3);
+        rowSelection.setColumnValue(col4, val4);
+
+        synopsis::GenerateSelectClause(ss, table, columns, rowSelection);
+        std::string sRes = ss.str();
+        QVERIFY(sRes == expected);
+    }
+}
+
+void Test_synopsis_DataAccessUtils::testCase7_data()
+{
+    // Test for SQL SELECT + WHERE clause generator
+
+    // table name
+    QTest::addColumn<std::string>("table");
+
+    // #1 column
+    //column name
+    QTest::addColumn<std::string>("col0");
+
+    // #2 column
+    //column name
+    QTest::addColumn<std::string>("col1");
+
+    // #3 column
+    //column name
+    QTest::addColumn<std::string>("col2");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val2");
+
+    // #4 column
+    //column name
+    QTest::addColumn<std::string>("col3");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val3");
+
+    // #5 column
+    //column name
+    QTest::addColumn<std::string>("col4");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val4");
+
+    //expected result
+    QTest::addColumn<std::string>("expected");
+
+    QTest::newRow("int")
+            << std::string("tbl")
+            << std::string("col0")
+            << std::string("col1")
+
+            << std::string("col2")
+            << synopsis::CVariant(333)
+
+            << std::string("col3")
+            << synopsis::CVariant("col3 string")
+
+            << std::string("col4")
+            << synopsis::CVariant(444)
+
+            << std::string("SELECT col0, col1, col2, col3, col4 FROM tbl WHERE col2=333 AND col3='col3 string' AND col4=444");
+}
+
+void Test_synopsis_DataAccessUtils::testCase8()
+{
+    // Test for SQL SELECT + WHERE + ORDER  clause generator
+    QFETCH(std::string, table);
+    QFETCH(std::string, expected0);
+    QFETCH(std::string, expected1);
+    QFETCH(std::string, col0);
+    QFETCH(std::string, col1);
+    QFETCH(std::string, col2);
+    QFETCH(std::string, col3);
+    QFETCH(std::string, col4);
+
+    QFETCH(synopsis::CVariant, val2);
+    QFETCH(synopsis::CVariant, val3);
+    QFETCH(synopsis::CVariant, val4);
+
+    QFETCH(bool, selorder0);
+    QFETCH(bool, selorder1);
+
+    {
+        synopsis::TStrings columns;
+        columns.push_back(col0);
+        columns.push_back(col1);
+        columns.push_back(col2);
+        columns.push_back(col3);
+        columns.push_back(col4);
+
+        synopsis::CRow rowSelection;
+        rowSelection.setColumnValue(col2, val2);
+        rowSelection.setColumnValue(col3, val3);
+        rowSelection.setColumnValue(col4, val4);
+
+        synopsis::SelectionOrder selectionOrder;
+        selectionOrder.m_bAscent = selorder0;
+        selectionOrder.m_Columns.push_back(col0);
+
+        {
+            std::stringstream ss;
+            synopsis::GenerateSelectClause(ss, table, columns, rowSelection, selectionOrder);
+            std::string sRes = ss.str();
+            QVERIFY(sRes == expected0);
+        }
+
+        {
+            selectionOrder.m_bAscent = selorder1;
+
+            selectionOrder.m_Columns.push_back(col1);
+            selectionOrder.m_Columns.push_back(col2);
+            std::stringstream ss;
+            synopsis::GenerateSelectClause(ss, table, columns, rowSelection, selectionOrder);
+            std::string sRes = ss.str();
+            QVERIFY(sRes == expected1);
+        }
+
+    }
+}
+
+void Test_synopsis_DataAccessUtils::testCase8_data()
+{
+    // Test for SQL SELECT + WHERE + ORDER clause generator
+
+    // table name
+    QTest::addColumn<std::string>("table");
+
+    // #1 column
+    //column name
+    QTest::addColumn<std::string>("col0");
+
+    // #2 column
+    //column name
+    QTest::addColumn<std::string>("col1");
+
+    // #3 column
+    //column name
+    QTest::addColumn<std::string>("col2");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val2");
+
+    // #4 column
+    //column name
+    QTest::addColumn<std::string>("col3");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val3");
+
+    // #5 column
+    //column name
+    QTest::addColumn<std::string>("col4");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val4");
+
+    QTest::addColumn<bool>("selorder0");
+    QTest::addColumn<bool>("selorder1");
+
+    // expected result
+    QTest::addColumn<std::string>("expected0");
+    QTest::addColumn<std::string>("expected1");
+
+    QTest::newRow("int")
+            << std::string("tbl")
+            << std::string("col0")
+            << std::string("col1")
+
+            << std::string("col2")
+            << synopsis::CVariant(333)
+
+            << std::string("col3")
+            << synopsis::CVariant("col3 string")
+
+            << std::string("col4")
+            << synopsis::CVariant(444)
+
+            << true
+            << false
+
+            << std::string("SELECT col0, col1, col2, col3, col4" \
+                           " FROM tbl WHERE col2=333 AND col3='col3 string' AND col4=444" \
+                           " ORDER BY col0 ASC")
+
+            << std::string("SELECT col0, col1, col2, col3, col4" \
+                           " FROM tbl WHERE col2=333 AND col3='col3 string' AND col4=444" \
+                           " ORDER BY col0, col1, col2 DESC");
+}
+
+
+
