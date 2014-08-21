@@ -23,6 +23,14 @@ void GenerateLiteralValue(std::ostream& os, const CVariant& vVal);
 */
 void GenerateWhereClause(std::ostream& os, const CRow& rowSelecion);
 
+/*! \fn void GenerateInsertClase(std::ostream& os, const std::string& sTableName, const TRows& arrRows);
+    \brief Generates a SQL INSERT clause based on the given table name and a table row.
+    \param os output stream.
+    \param sTableName table name
+    \param a row to be inserted
+*/
+void GenerateInsertClase(std::ostream& os, const std::string& sTableName, const CRow& row);
+
 } //namespace synopsis
 
 

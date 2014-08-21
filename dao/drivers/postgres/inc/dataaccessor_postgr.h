@@ -1,7 +1,7 @@
 #ifndef DATAACCESSOR_POSTGR_H
 #define DATAACCESSOR_POSTGR_H
 
-#include <dao/inc/dataaccessorbase.h>
+#include <dao/inc/idataaccessor.h>
 #include "connection_postgr.h"
 
 
@@ -13,15 +13,16 @@ public:
 
     CDataAccessorPostgr(ConnectionPostgr& connection);
 
-//    virtual void SetConnection(IConnection* pIConnection) { m_pIConnection = pIConnection; }
-
     virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
                       const CRow& rowSelection, const TStrings& arrColumnsSort) const;
-    virtual void Insert(const std::string& sTableName, const TRows& arrRows);
+    virtual void Insert(const std::string& sTableName, const CRow& rowNew);
     virtual void Update(const std::string& sTableName, const CRow& rowSelection, const CRow& rowUpdate);
     virtual void Delete(const std::string& sTableName, const CRow& rowSelection);
+    virtual unsigned long GetLastIsertedRowId(const std::string& sTableName, const std::string& sKeyColumn);
+
 
 private:
+    void CheckConnection() const;
     ConnectionPostgr&  m_Connection;
 };
 

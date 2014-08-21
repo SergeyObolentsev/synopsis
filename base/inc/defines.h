@@ -14,8 +14,7 @@ enum ECommonTypes
     ECommonTypeDate ,
     ECommonTypeTime ,
     ECommonTypeDateTime,
-    ECommonTypePszStr,
-    ECommonTypeStlStr,
+    ECommonTypeStdString,
     ECommonTypeMax  ,
 };
 

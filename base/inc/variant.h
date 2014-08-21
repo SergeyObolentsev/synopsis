@@ -3,6 +3,7 @@
 
 #include "defines.h"
 #include <iostream>
+#include <string>
 
 namespace synopsis {
 
@@ -13,8 +14,10 @@ public:
     CVariant ();
     CVariant (ECommonTypes eType);
     CVariant (int iVal);
-    CVariant (bool iVal);
-    CVariant (double iVal);
+    CVariant (bool bVal);
+    CVariant (double dVal);
+    CVariant (const char* pszVal);
+    CVariant (const std::string& sVal);
 
     inline bool IsValid() const { return m_bIsValid; }
     inline bool IsNull() const { return m_bIsNull; }
@@ -28,19 +31,22 @@ public:
     int ToInt() const;
     bool ToBool() const;
     double ToDouble() const;
+    const std::string& ToStdString() const;
 
     friend std::ostream& operator<<(std::ostream&, CVariant&);
 
 public:
 private:
     inline void SetValid(bool bIsValid) { m_bIsValid = bIsValid; }
-
+    //inline bool IsStringData() const { return m_eType == ECommonTypeString; }
     union UData
     {
         int i;
         bool b;
         double d;
     } m_uData;
+
+    std::string m_sData;
 
     ECommonTypes m_eType;
     bool m_bIsValid;

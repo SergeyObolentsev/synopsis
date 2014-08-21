@@ -1,6 +1,7 @@
 #include "../inc/dataaccessorbase.h"
 
 namespace synopsis {
+
 /*
 CDataAccessorBase::CDataAccessorBase()
     :m_pIConnection(0)
@@ -15,7 +16,7 @@ void CDataAccessorBase::Read(TRows& arrResult, const std::string& sTableName, co
 
 }
 
-void CDataAccessorBase::Insert(const std::string& sTableName, const TRows& arrRows)
+void CDataAccessorBase::Insert(const std::string& sTableName, const CRow& rowNew)
 {
 
 }

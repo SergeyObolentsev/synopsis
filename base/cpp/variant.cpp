@@ -42,6 +42,24 @@ CVariant::CVariant (double dVal)
     m_uData.d = dVal;
 }
 
+CVariant::CVariant (const char* pszVal)
+    :m_sData(pszVal)
+    ,m_eType(ECommonTypeStdString)
+    ,m_bIsValid(true)
+    ,m_bIsNull(false)
+
+{
+}
+
+CVariant::CVariant (const std::string& sVal)
+    :m_sData(sVal)
+    ,m_eType(ECommonTypeStdString)
+    ,m_bIsValid(true)
+    ,m_bIsNull(false)
+{
+}
+
+
 int CVariant::ToInt() const
 {
     assert(ECommonTypeInt == m_eType);
@@ -60,6 +78,12 @@ double CVariant::ToDouble() const
     return m_uData.d;
 }
 
+const std::string& CVariant::ToStdString() const
+{
+    assert(ECommonTypeStdString == m_eType);
+    return m_sData;
+}
+
 } //namespace synopsis
 
 std::ostream& operator<<(std::ostream& os, const synopsis::CVariant& v)
@@ -73,6 +97,9 @@ std::ostream& operator<<(std::ostream& os, const synopsis::CVariant& v)
         break;
         case synopsis::ECommonTypeDouble:
             os << v.ToDouble();
+        break;
+        case synopsis::ECommonTypeStdString:
+            os << v.ToStdString();
         break;
         default:
             assert(false);

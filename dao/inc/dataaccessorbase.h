@@ -6,6 +6,8 @@
 
 namespace synopsis {
 
+
+//It seems like we don't need this class TBR(To Be Removed)
 class CDataAccessorBase : public IDataAccessor {
 
 public:
@@ -16,7 +18,7 @@ public:
 
     virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
                       const CRow& rowSelection, const TStrings& arrColumnsSort) const;
-    virtual void Insert(const std::string& sTableName, const TRows& arrRows);
+    virtual void Insert(const std::string& sTableName, const CRow& rowNew);
     virtual void Update(const std::string& sTableName, const CRow& rowSelection, const CRow& rowUpdate);
     virtual void Delete(const std::string& sTableName, const CRow& rowSelection);
 

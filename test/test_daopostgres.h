@@ -1,10 +1,12 @@
 #ifndef TEST_DAOPOSTGRES_H
 #define TEST_DAOPOSTGRES_H
 
-#include <dao/drivers/postgres/inc/connection_postgr.h>
+#include <auto_ptr.h>
 
 #include <QTest>
 
+#include <dao/drivers/postgres/inc/connection_postgr.h>
+#include <dao/drivers/postgres/inc/dataaccessor_postgr.h>
 
 class Test_synopsis_ConnectionPostgr : public QObject
 {
@@ -20,7 +22,8 @@ private Q_SLOTS:
     void testCase1_data();
 
 private:
-    synopsis::ConnectionPostgr m_conn;
+    synopsis::ConnectionPostgr m_Connection;
+    std::auto_ptr<synopsis::CDataAccessorPostgr> m_PtrDataAccessor;
 };
 
 

@@ -13,7 +13,8 @@ void Test_synopsis_ConnectionPostgr::initTestCase()
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     QString sConnStr = env.value("SQL_DB_CONN_STR_POSTGRES");
     try {
-        m_conn.Open(sConnStr.toStdString());
+        m_Connection.Open(sConnStr.toStdString());
+        m_PtrDataAccessor.reset(new synopsis::CDataAccessorPostgr(m_Connection));
     } catch (std::runtime_error& err) {
         std::cout << err.what() << std::endl;
         QVERIFY(false);
@@ -40,10 +41,23 @@ void Test_synopsis_ConnectionPostgr::testCase1()
 
    // m_row.addColumn(column, value);
    // QVERIFY(m_row.getColumnValue(column).ToInt() == expected);
+
+
+    synopsis::CRow rowNew;
+
+    rowNew.setColumnValue("int1", 1234);
+    rowNew.setColumnValue("int2", 56789);
+
+    m_PtrDataAccessor->Insert("test", rowNew);
+    m_PtrDataAccessor->GetLastIsertedRowId("test", "id");
+
 }
 
 void Test_synopsis_ConnectionPostgr::testCase1_data()
 {
+
+
+
    // QTest::addColumn<std::string>("column");
    // QTest::addColumn<synopsis::CVariant>("value");
    // QTest::addColumn<int>("expected");

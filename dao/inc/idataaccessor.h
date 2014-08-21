@@ -4,7 +4,7 @@
 #include "row.h"
 //#include "iconnection.h"
 
-#include <list>
+//#include <list>
 
 namespace synopsis {
 
@@ -12,15 +12,13 @@ class IDataAccessor {
 
 public:
 
-    typedef std::list<CRow> TRows;
-    typedef std::list<std::string> TStrings;
-
 //    virtual void SetConnection(IConnection* pIConnection) = 0;
     virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
               const CRow& rowSelection, const TStrings& arrColumnsSort) const = 0;
-    virtual void Insert(const std::string& sTableName, const TRows& arrRows) = 0;
+    virtual void Insert(const std::string& sTableName, const CRow& rowNew) = 0;
     virtual void Update(const std::string& sTableName, const CRow& rowSelection, const CRow& rowUpdate) = 0;
     virtual void Delete(const std::string& sTableName, const CRow& rowSelection) = 0;
+    virtual unsigned long GetLastIsertedRowId(const std::string& sTableName, const std::string& sKeyColumn) = 0;
 };
 
 } // namespace synopsis

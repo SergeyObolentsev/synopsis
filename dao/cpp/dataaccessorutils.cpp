@@ -26,5 +26,35 @@ void GenerateWhereClause(std::ostream& os, const CRow& rowSelecion)
     }
 }
 
+void GenerateInsertClase(std::ostream& os, const std::string& sTableName, const CRow& row)
+{
+    os << "INSERT INTO "
+       << sTableName;
+
+    // List the column names
+    os << " (";
+    {
+        for(CRow::TMap::const_iterator itColumn(row.begin()); itColumn != row.end(); ++itColumn) {
+            if(itColumn != row.begin()){
+                os << ", ";
+            }
+            os << itColumn->first;
+        }
+    }
+
+    // List the column values
+    os << ") VALUES (";
+    {
+        for(CRow::TMap::const_iterator itColumn(row.begin()); itColumn != row.end(); ++itColumn) {
+            if(itColumn != row.begin()){
+                os << ", ";
+            }
+            const CVariant& val (itColumn->second);
+            GenerateLiteralValue(os, val);
+        }
+    }
+    os << ")";
+}
+
 
 } //namespace synopsis
