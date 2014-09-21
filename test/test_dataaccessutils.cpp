@@ -492,5 +492,175 @@ void Test_synopsis_DataAccessUtils::testCase8_data()
                            " ORDER BY col0, col1, col2 DESC");
 }
 
+void Test_synopsis_DataAccessUtils::testCase9()
+{
+    // Test for SQL SELECT clause generator
+    QFETCH(std::string, table);
+    QFETCH(std::string, expected);
 
+    {
+        std::stringstream ss;
+        synopsis::GenerateDeleteClause(ss, table);
+        std::string sRes = ss.str();
+        QVERIFY(sRes == expected);
+    }
+}
 
+void Test_synopsis_DataAccessUtils::testCase9_data()
+{
+    // Test for SQL DELETE clause generator
+
+    // table name
+    QTest::addColumn<std::string>("table");
+
+    //expected result
+    QTest::addColumn<std::string>("expected");
+
+    QTest::newRow("int")
+            << std::string("tbl")
+            << std::string("DELETE FROM tbl");
+}
+
+void Test_synopsis_DataAccessUtils::testCase10()
+{
+    // Test for SQL SELECT clause generator
+    QFETCH(std::string, table);
+    QFETCH(std::string, expected);
+
+    QFETCH(std::string, col0);
+    QFETCH(std::string, col1);
+
+    QFETCH(synopsis::CVariant, val0);
+    QFETCH(synopsis::CVariant, val1);
+
+    {
+        std::stringstream ss;
+
+        synopsis::CRow row;
+        row.setColumnValue(col0, val0);
+        row.setColumnValue(col1, val1);
+
+        synopsis::GenerateDeleteClause(ss, table, row);
+        std::string sRes = ss.str();
+        QVERIFY(sRes == expected);
+    }
+}
+
+void Test_synopsis_DataAccessUtils::testCase10_data()
+{
+    // Test for SQL DELETE clause generator
+
+    // table name
+    QTest::addColumn<std::string>("table");
+
+    // #1 column
+    //column name
+    QTest::addColumn<std::string>("col0");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val0");
+
+    // #2 column
+    //column name
+    QTest::addColumn<std::string>("col1");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val1");
+
+    //expected result
+    QTest::addColumn<std::string>("expected");
+
+    QTest::newRow("int")
+            << std::string("tbl")
+
+            << std::string("col0")
+            << synopsis::CVariant(444)
+
+            << std::string("col1")
+            << synopsis::CVariant("col1 string")
+
+            << std::string("DELETE FROM tbl WHERE col0=444 AND col1='col1 string'");
+}
+
+void Test_synopsis_DataAccessUtils::testCase11()
+{
+    // Test for SQL SELECT clause generator
+    QFETCH(std::string, table);
+    QFETCH(std::string, expected);
+
+    QFETCH(std::string, col0);
+    QFETCH(std::string, col1);
+
+    QFETCH(synopsis::CVariant, val0);
+    QFETCH(synopsis::CVariant, val1);
+
+    QFETCH(std::string, filt_col0);
+    QFETCH(std::string, filt_col1);
+
+    QFETCH(synopsis::CVariant, filt_val0);
+    QFETCH(synopsis::CVariant, filt_val1);
+
+    {
+        synopsis::CRow rowUpdate;
+        rowUpdate.setColumnValue(col0, val0);
+        rowUpdate.setColumnValue(col1, val1);
+
+        synopsis::CRow rowSelection;
+        rowSelection.setColumnValue(filt_col0, filt_val0);
+        rowSelection.setColumnValue(filt_col1, filt_val1);
+
+        std::stringstream ss;
+        synopsis::GenerateUpdateClause(ss, table, rowUpdate, rowSelection);
+        std::string sRes = ss.str();
+        QVERIFY(sRes == expected);
+    }
+}
+
+void Test_synopsis_DataAccessUtils::testCase11_data()
+{
+    // Test for SQL UPDATE + WHERE clause generator
+
+    // table name
+    QTest::addColumn<std::string>("table");
+
+    // #1 column
+    //column name
+    QTest::addColumn<std::string>("col0");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val0");
+
+    // #2 column
+    //column name
+    QTest::addColumn<std::string>("col1");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("val1");
+
+    // filter columns
+    // #1 filter column
+    //column name
+    QTest::addColumn<std::string>("filt_col0");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("filt_val0");
+
+    // #2 filter column
+    //column name
+    QTest::addColumn<std::string>("filt_col1");
+    //column value
+    QTest::addColumn<synopsis::CVariant>("filt_val1");
+
+    //expected result
+    QTest::addColumn<std::string>("expected");
+
+    QTest::newRow("int")
+            << std::string("tbl")
+            << std::string("col0")
+            << synopsis::CVariant(555)
+            << std::string("col1")
+            << synopsis::CVariant("col1 string")
+
+            << std::string("id")
+            << synopsis::CVariant(777)
+
+            << std::string("col3")
+            << synopsis::CVariant("col3 filter string")
+
+            << std::string("UPDATE tbl SET col0=555, col1='col1 string' WHERE col3='col3 filter string' AND id=777");
+}

@@ -42,6 +42,23 @@ void GenerateOrderClause(std::ostream& os,  const SelectionOrder& selectionOrder
 */
 void GenerateInsertClause(std::ostream& os, const std::string& sTableName, const CRow& row);
 
+/*! \fn void GenerateUpdateClause(std::ostream& os, const std::string& sTableName, const CRow& rowUpdate, const CRow& rowSelection = CRow());
+    \brief Generates a SQL UPDATE clause
+    \param os output stream.
+    \param rowUpdate a set of update columns and values
+    \param selectionOrder the columns to sort
+    \param rowSelecion a set of filter columns and values used to subset of rows, or empty to update all the rows
+*/
+void GenerateUpdateClause(std::ostream& os, const std::string& sTableName, const CRow& rowUpdate, const CRow& rowSelection = CRow());
+
+/*! \fn void GenerateDeleteClase(std::ostream& os, const std::string& sTableName, const CRow& rowSelecion);
+    \brief Generates a SQL DELETE clause
+    \param os output stream.
+    \param sTableName table name
+    \param rowSelection a set of filter columns and values to subset the rows
+*/
+void GenerateDeleteClause(std::ostream& os, const std::string& sTableName, const CRow& rowSelecion = CRow());
+
 /*! \fn void GenerateSelectClase(std::ostream& os, const std::string& sTableName, const TRows& arrRows);
     \brief Generates a SQL SELECT clause
     \param os output stream.
@@ -54,6 +71,14 @@ void GenerateSelectClause(std::ostream& os, const std::string& sTableName,
                           const TStrings& arrColumns = TStrings(),
                           const CRow& rowSelection = CRow(),
                           const SelectionOrder& selectionOrder = SelectionOrder());
+
+/*! \fn void GenerateCountClase(std::ostream& os, const std::string& sTableName, const CRow& rowSelecion);
+    \brief Generates a SQL COUNT clause
+    \param os output stream.
+    \param sTableName table name
+    \param rowSelection a set of filter columns and values to subset the rows
+*/
+void GenerateCountClause(std::ostream& os, const std::string& sTableName, const CRow& rowSelecion = CRow());
 
 
 } //namespace synopsis

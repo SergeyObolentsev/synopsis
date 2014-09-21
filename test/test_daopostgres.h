@@ -22,10 +22,16 @@ private Q_SLOTS:
     void testCase1_data();
     void testCase2();
     void testCase2_data();
+    void testCase3();
+    void testCase3_data();
+    void testCase4();
+    void testCase4_data();
 
 private:
     synopsis::ConnectionPostgr m_Connection;
     std::auto_ptr<synopsis::CDataAccessorPostgr> m_PtrDataAccessor;
+
+    unsigned long m_ulLastRowId;
 };
 
 

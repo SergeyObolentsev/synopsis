@@ -9,6 +9,7 @@ enum ECommonTypes
     ECommonTypeNone ,
     ECommonTypeBool  ,
     ECommonTypeInt  ,
+    ECommonTypeULong,
     ECommonTypeDouble,
     ECommonTypeFloat,
     ECommonTypeDate ,

@@ -10,7 +10,7 @@ typename TMap::iterator EfficientAddUpdate(TMap& tMap, const TKey& tKey, const T
 {
     typename TMap::iterator lb = tMap.lower_bound(tKey);
 
-    if(lb != tMap.end()){
+    if((lb != tMap.end()) && (lb->first == tKey)) {
         lb->second = tVal;
         return lb;
     }else{

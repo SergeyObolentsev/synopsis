@@ -12,10 +12,6 @@ class CDataAccessorBase : public IDataAccessor {
 
 public:
 
-   // CDataAccessorBase();
-
-   // virtual void SetConnection(IConnection* pIConnection) { m_pIConnection = pIConnection; }
-
     virtual void Read(TRows& arrResult, const std::string& sTableName, const TStrings& arrColumns,
                       const CRow& rowSelection, const SelectionOrder& selectionOrder) const;
     virtual void Insert(const std::string& sTableName, const CRow& rowNew);

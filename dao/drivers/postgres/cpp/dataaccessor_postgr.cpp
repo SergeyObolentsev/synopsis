@@ -61,8 +61,6 @@ void CDataAccessorPostgr::Read(TRows& arrResult, const std::string& sTableName, 
     PQclear(res);
 }
 
-
-
 void CDataAccessorPostgr::Insert(const std::string& sTableName, const CRow& rowNew)
 {
     CheckConnection();
@@ -85,13 +83,11 @@ void CDataAccessorPostgr::Insert(const std::string& sTableName, const CRow& rowN
     PQclear(res);
 }
 
-
 unsigned long CDataAccessorPostgr::GetLastIsertedRowId(const std::string& sTableName, const std::string& sKeyColumn)
 {
     CheckConnection();
 
     unsigned long ulRes = -1L;
-
 
     enum {
         _NParams = 2,
@@ -149,14 +145,50 @@ unsigned long CDataAccessorPostgr::GetLastIsertedRowId(const std::string& sTable
     return ulRes;
 }
 
-void CDataAccessorPostgr::Update(const std::string& sTableName, const CRow& rowSelection, const CRow& rowUpdate)
+void CDataAccessorPostgr::Update(const std::string& sTableName, const CRow& rowUpdate, const CRow& rowSelection)
 {
     CheckConnection();
+
+    std::stringstream ss;
+    synopsis::GenerateUpdateClause(ss, sTableName, rowUpdate, rowSelection);
+
+    PGresult *res(NULL);
+    res = PQexec(m_Connection.getPGconn(), ss.str().c_str());
+
+    ExecStatusType status = PQresultStatus(res);
+    if (status != PGRES_COMMAND_OK ) {
+        std::string sMsg(PQresultErrorMessage(res));
+        std::stringstream ss;
+        ss << "PQ Failed to execute query. "
+           << ss.str()
+           << sMsg;
+        PQclear(res);
+        throw std::runtime_error(ss.str());
+    }
+    PQclear(res);
 }
 
 void CDataAccessorPostgr::Delete(const std::string& sTableName, const CRow& rowSelection)
 {
     CheckConnection();
+
+    std::stringstream ss;
+    synopsis::GenerateDeleteClause(ss, sTableName);
+
+    PGresult *res(NULL);
+    res = PQexec(m_Connection.getPGconn(), ss.str().c_str());
+
+    ExecStatusType status = PQresultStatus(res);
+    if (status != PGRES_COMMAND_OK ) {
+        std::string sMsg(PQresultErrorMessage(res));
+        std::stringstream ss;
+        ss << "PQ Failed to execute query. "
+           << ss.str()
+           << sMsg;
+        PQclear(res);
+        throw std::runtime_error(ss.str());
+    }
+    PQclear(res);
 }
 
 void CDataAccessorPostgr::CheckConnection() const
@@ -168,6 +200,45 @@ void CDataAccessorPostgr::CheckConnection() const
         ss << " Database Error.\nConnection status is:" << status;
         throw std::runtime_error(ss.str());
     }
+}
+
+unsigned long CDataAccessorPostgr::GetRowCount(const std::string& sTableName) const
+{
+    CheckConnection();
+
+    unsigned long ulRes = -1L;
+
+    std::stringstream ss;
+    synopsis::GenerateCountClause(ss, sTableName);
+
+    PGresult *res(NULL);
+    res = PQexec(m_Connection.getPGconn(), ss.str().c_str());
+
+    ExecStatusType status = PQresultStatus(res);
+    if (status != PGRES_TUPLES_OK ) {
+        std::string sMsg(PQresultErrorMessage(res));
+        std::stringstream ss;
+        ss << "PQ Failed to execute query. "
+           << ss.str()
+           << sMsg;
+        PQclear(res);
+        throw std::runtime_error(ss.str());
+    }
+
+    //Check the result
+    if(PQntuples(res) < 1){
+        PQclear(res);
+        throw std::runtime_error("Couldn't read row count");
+    }
+
+    const char* sRes = PQgetvalue(res, 0, 0);
+    if(!sRes) {
+        PQclear(res);
+        throw std::runtime_error("Couldn't read row count");
+    }
+
+    ulRes = atoll(sRes);
+    return ulRes;
 }
 
 } // namespace synopsis

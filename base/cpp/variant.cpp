@@ -27,6 +27,14 @@ CVariant::CVariant (int iVal)
     m_uData.i = iVal;
 }
 
+CVariant::CVariant (unsigned long ulVal)
+    :m_eType(ECommonTypeULong)
+    ,m_bIsValid(true)
+    ,m_bIsNull(false)
+{
+    m_uData.ul = ulVal;
+}
+
 CVariant::CVariant (bool bVal)
     :m_eType(ECommonTypeBool)
     ,m_bIsValid(true)
@@ -60,7 +68,6 @@ CVariant::CVariant (const std::string& sVal)
 {
 }
 
-
 int CVariant::ToInt() const
 {
     int iRes = 0;
@@ -78,6 +85,28 @@ int CVariant::ToInt() const
     }
     return iRes;
 }
+
+unsigned long CVariant::ToULong() const
+{
+    unsigned long ulRes = 0;
+    switch (m_eType) {
+    case ECommonTypeInt:
+        ulRes = m_uData.i;
+        break;
+    case ECommonTypeULong:
+        ulRes = m_uData.ul;
+        break;
+    case ECommonTypeStdString:
+        if (!m_sData.empty()){
+            ulRes = atol(m_sData.c_str());
+        }
+        break;
+    default:
+        ulRes = 0;
+    }
+    return ulRes;
+}
+
 
 bool CVariant::ToBool() const
 {
@@ -107,6 +136,9 @@ std::ostream& operator<<(std::ostream& os, const synopsis::CVariant& v)
         break;
         case synopsis::ECommonTypeInt:
             os << v.ToInt();
+        break;
+        case synopsis::ECommonTypeULong:
+            os << v.ToULong();
         break;
         case synopsis::ECommonTypeDouble:
             os << v.ToDouble();

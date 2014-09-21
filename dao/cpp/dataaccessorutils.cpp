@@ -73,6 +73,30 @@ void GenerateInsertClause(std::ostream& os, const std::string& sTableName, const
     os << ")";
 }
 
+void GenerateUpdateClause(std::ostream& os, const std::string& sTableName, const CRow& rowUpdate, const CRow& rowSelection)
+{
+    os << "UPDATE "
+       << sTableName
+       << " SET ";
+
+    for(CRow::TMap::const_iterator itColumn(rowUpdate.begin()); itColumn != rowUpdate.end(); ++itColumn) {
+        if(itColumn != rowUpdate.begin()){
+            os << ", ";
+        }
+        os << itColumn->first
+           << "=";
+        GenerateLiteralValue(os, itColumn->second);
+    }
+    GenerateWhereClause(os, rowSelection);
+}
+
+void GenerateDeleteClause(std::ostream& os, const std::string& sTableName, const CRow& rowSelection)
+{
+    os << "DELETE FROM "
+       << sTableName;
+    GenerateWhereClause(os, rowSelection);
+}
+
 void GenerateSelectClause(std::ostream& os, const std::string& sTableName, const TStrings& arrColumns,
                           const CRow& rowSelection, const SelectionOrder& selectionOrder)
 {
@@ -92,5 +116,13 @@ void GenerateSelectClause(std::ostream& os, const std::string& sTableName, const
     GenerateWhereClause(os, rowSelection);
     GenerateOrderClause(os, selectionOrder);
 }
+
+void GenerateCountClause(std::ostream& os, const std::string& sTableName, const CRow& rowSelection)
+{
+    os << "SELECT COUNT(*) FROM "
+       << sTableName;
+    GenerateWhereClause(os, rowSelection);
+}
+
 
 } //namespace synopsis
