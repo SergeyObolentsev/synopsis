@@ -18,4 +18,3 @@ HEADERS += \
 
 SOURCES += \
     cpp/dataaccessorutils.cpp \
-    cpp/dataaccessorbase.cpp
