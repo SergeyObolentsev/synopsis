@@ -13,9 +13,9 @@ void Test_synopsis_ConnectionPostgr::initTestCase()
 {
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     QString sConnStr = env.value("SQL_DB_CONN_STR_POSTGRES");
-    try {
-        m_Connection.Open(sConnStr.toStdString());
-        m_PtrDataAccessor.reset(new synopsis::CDataAccessorPostgr(m_Connection));
+    try {        
+        m_PtrDataAccessor.reset(new synopsis::CDataAccessorPostgr());
+        m_PtrDataAccessor->GetConnection().Open(sConnStr.toStdString());
     } catch (std::runtime_error& err) {
         std::cout << err.what() << std::endl;
         QVERIFY(false);

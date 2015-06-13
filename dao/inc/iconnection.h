@@ -8,7 +8,7 @@ namespace synopsis {
 class IConnection {
 
 public:
-
+    virtual ~IConnection() {}
     virtual void Open(const std::string & sConnectionStr) = 0;
     virtual void Close() = 0;
 

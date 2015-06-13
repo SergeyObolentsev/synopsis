@@ -8,6 +8,7 @@
 #include <dao/drivers/postgres/inc/connection_postgr.h>
 #include <dao/drivers/postgres/inc/dataaccessor_postgr.h>
 
+
 class Test_synopsis_ConnectionPostgr : public QObject
 {
     Q_OBJECT
@@ -28,9 +29,8 @@ private Q_SLOTS:
     void testCase4_data();
 
 private:
-    synopsis::ConnectionPostgr m_Connection;
-    std::auto_ptr<synopsis::CDataAccessorPostgr> m_PtrDataAccessor;
 
+    std::auto_ptr<synopsis::CDataAccessorPostgr> m_PtrDataAccessor;
     unsigned long m_ulLastRowId;
 };
 

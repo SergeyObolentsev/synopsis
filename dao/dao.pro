@@ -12,7 +12,6 @@ LIBS += -lsynopsisbase
 HEADERS += \
     inc/row.h \
     inc/idataaccessor.h \
-    inc/dataaccessorbase.h \
     inc/dataaccessorutils.h \
     inc/iconnection.h \
     inc/daocommon.h

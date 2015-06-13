@@ -1,21 +1,22 @@
-QT -= core gui
+QT -= core
 TEMPLATE = lib
 
 INCLUDEPATH += ${ROOT_SYNOPSIS}
 DESTDIR = ${ROOT_SYNOPSIS}/out/
 LIBS += -L${ROOT_SYNOPSIS}/out/
 
+
 LIBS += \
     -lsynopsisbase \
     -lsynopsisdao \
-    -lpq
+    -lsynopsisdaopostgres  \
 
-TARGET = synopsisdaopostgres
+TARGET = synopsisdaofacade
 
 HEADERS += \
-    inc/connection_postgr.h \
-    inc/dataaccessor_postgr.h \
+    ids_drivers.h \
+    dao_class_factory.h
 
 SOURCES += \
-    cpp/connection_postgr.cpp \
-    cpp/dataaccessor_postgr.cpp \
+    ids_drivers.cpp \
+    dao_class_factory.cpp

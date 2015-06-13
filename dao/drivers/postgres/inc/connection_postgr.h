@@ -12,7 +12,7 @@ class ConnectionPostgr : public IConnection {
 public:
 
     ConnectionPostgr();
-    ~ConnectionPostgr();
+    virtual ~ConnectionPostgr();
 
     virtual void Open(const std::string & sConnectionStr);
     virtual void Close();

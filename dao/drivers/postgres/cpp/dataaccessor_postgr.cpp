@@ -11,8 +11,12 @@
 
 namespace synopsis {
 
-CDataAccessorPostgr::CDataAccessorPostgr(ConnectionPostgr& connection)
-    :m_Connection(connection)
+CDataAccessorPostgr::CDataAccessorPostgr()
+{
+
+}
+
+CDataAccessorPostgr::~CDataAccessorPostgr()
 {
 
 }

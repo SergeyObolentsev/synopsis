@@ -14,8 +14,8 @@ LIBS += -L${ROOT_SYNOPSIS}/out/
 LIBS += \
     -lsynopsisbase \
     -lsynopsisdao \
-    -lsynopsisdaopostgres
-
+    -lsynopsisdaopostgres \
+    -lsynopsisdaofacade
 
 QT       += testlib
 
@@ -25,15 +25,13 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-
-INCLUDEPATH = ${ROOT_SYNOPSIS}
-
 SOURCES += \
     tst_test_basetest.cpp \
     test_variant.cpp \
     test_row.cpp \
     test_dataaccessutils.cpp \
-    test_daopostgres.cpp
+    test_daopostgres.cpp \
+    test_facade.cpp
 
 
 HEADERS += \
@@ -41,5 +39,6 @@ HEADERS += \
     test_row.h \
     qtmeta.h \
     test_dataaccessutils.h \
-    test_daopostgres.h
+    test_daopostgres.h \
+    test_facade.h
 

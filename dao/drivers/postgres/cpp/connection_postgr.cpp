@@ -8,7 +8,9 @@ namespace synopsis {
 ConnectionPostgr::ConnectionPostgr()
     :m_pConn(0)
 {
+
 }
+
 ConnectionPostgr::~ConnectionPostgr()
 {
     try
