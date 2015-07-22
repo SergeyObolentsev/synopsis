@@ -177,7 +177,7 @@ void CDataAccessorPostgr::Delete(const std::string& sTableName, const CRow& rowS
     CheckConnection();
 
     std::stringstream ss;
-    synopsis::GenerateDeleteClause(ss, sTableName);
+    synopsis::GenerateDeleteClause(ss, sTableName, rowSelection);
 
     PGresult *res(NULL);
     res = PQexec(m_Connection.getPGconn(), ss.str().c_str());

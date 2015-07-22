@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     test<Test_synopsis_CRow>(iRes);
     test<Test_synopsis_DataAccessUtils>(iRes);
     test<Test_synopsis_ConnectionPostgr>(iRes);
-    test<Test_synopsis_Facade>(iRes);
+    //test<Test_synopsis_Facade>(iRes);
 
     std::cout << "TEST "
               << (iRes ? "FAILED": "PASSED")

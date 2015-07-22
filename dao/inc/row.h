@@ -7,7 +7,7 @@
 #include <map>
 #include <stdexcept>
 #include <string>
-#include <list>
+#include <vector>
 
 namespace synopsis {
 
@@ -94,7 +94,7 @@ private:
     std::string m_sKeyColumn;
 };
 
-typedef std::list<CRow> TRows;
+typedef std::vector<CRow> TRows;
 
 } //namespace synopsis
 

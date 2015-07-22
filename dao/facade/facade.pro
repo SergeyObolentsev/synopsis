@@ -1,17 +1,16 @@
-QT -= core
+QT -= core gui
+TARGET = synopsisdaofacade
 TEMPLATE = lib
 
 INCLUDEPATH += ${ROOT_SYNOPSIS}
 DESTDIR = ${ROOT_SYNOPSIS}/out/
 LIBS += -L${ROOT_SYNOPSIS}/out/
 
-
 LIBS += \
     -lsynopsisbase \
     -lsynopsisdao \
     -lsynopsisdaopostgres  \
 
-TARGET = synopsisdaofacade
 
 HEADERS += \
     ids_drivers.h \

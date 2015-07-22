@@ -22,7 +22,6 @@ public:
 
     inline bool IsValid() const { return m_bIsValid; }
     inline bool IsNull() const { return m_bIsNull; }
-    inline void SetNull() { m_bIsNull = true; }
     inline ECommonTypes GetType() const { return m_eType; }
     inline void SetType(ECommonTypes eType) { m_eType = eType; }
     inline bool IsNumber() const { return m_eType == ECommonTypeInt
@@ -36,11 +35,13 @@ public:
     double ToDouble() const;
     const std::string& ToStdString() const;
 
+    inline ECommonTypes Type() const { return m_eType; }
+
     friend std::ostream& operator<<(std::ostream&, CVariant&);
 
-public:
-private:
+protected:
     inline void SetValid(bool bIsValid) { m_bIsValid = bIsValid; }
+    inline void SetIsNull(bool bIsNull) { m_bIsNull = bIsNull; }
     union UData
     {
         int i;
@@ -48,9 +49,7 @@ private:
         bool b;
         double d;
     } m_uData;
-
     std::string m_sData;
-
     ECommonTypes m_eType;
     bool m_bIsValid;
     bool m_bIsNull;

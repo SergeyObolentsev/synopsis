@@ -27,6 +27,8 @@ private Q_SLOTS:
     void testCase3_data();
     void testCase4();
     void testCase4_data();
+    void testCase5();
+    void testCase5_data();
 
 private:
 

@@ -16,4 +16,7 @@ inc/stl_helper_map.h
 SOURCES += \
 cpp/variant.cpp
 
+OTHER_FILES += \
+    ../install.sh
+
 

@@ -20,9 +20,6 @@ public:
     inline PGconn* getPGconn() { return m_pConn; }
 private:
 
-    //ConnectionPostgr (const ConnectionPostgr&);
-    //ConnectionPostgr& operator=(const ConnectionPostgr&);
-
     PGconn* m_pConn;
 };
 

@@ -8,7 +8,6 @@ namespace synopsis {
 ConnectionPostgr::ConnectionPostgr()
     :m_pConn(0)
 {
-
 }
 
 ConnectionPostgr::~ConnectionPostgr()
@@ -48,6 +47,5 @@ void ConnectionPostgr::Close()
 {
     PQfinish(m_pConn);
 }
-
 
 } //namespace synopsis
