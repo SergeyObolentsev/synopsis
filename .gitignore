@@ -9,6 +9,7 @@
 *.class
 
 # generated files
+out/
 bin/
 gen/
 moc_*
